@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lawal Forge | Design. Draft. Deliver.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #0a0a0a;
+    --deep:    #111111;
+    --card:    #181818;
+    --border:  #2a2a2a;
+    --orange:  #1A3ADB;
+    --orange2: #2f52f5;
+    --white:   #f0ede8;
+    --muted:   #888888;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'Inter', sans-serif;
+    --font-mono:    'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(26,58,219,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,58,219,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute; top: -10%; right: -5%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(26,58,219,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 1.2rem;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 12vw, 10rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+  }
+  .hero-title .forge {
+    -webkit-text-stroke: 2px var(--orange);
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin-top: 1.8rem;
+    line-height: 1.8;
+    position: relative; z-index: 1;
+  }
+  .hero-cta {
+    display: flex; gap: 1.2rem; margin-top: 2.8rem;
+    position: relative; z-index: 1;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-stats {
+    display: flex; gap: 3.5rem; margin-top: 5rem;
+    border-top: 1px solid var(--border); padding-top: 2rem;
+    position: relative; z-index: 1;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; }
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+  }
+  .divider {
+    width: 60px; height: 3px;
+    background: var(--orange);
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--deep); }
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1100px;
+  }
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+  .about-text p strong { color: var(--white); }
+  .about-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag:hover { border-color: var(--orange); color: var(--orange); }
+  .about-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-forge-art {
+    width: 280px; height: 280px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);
+  }
+  .about-forge-art::before {
+    content: '';
+    position: absolute; inset: 8px;
+    border: 1px solid var(--orange);
+    clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+  }
+  .forge-initial {
+    font-family: var(--font-display);
+    font-size: 8rem;
+    color: var(--orange);
+    opacity: 0.9;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+  .about-forge-art::after {
+    content: 'LAWAL FORGE';
+    position: absolute; bottom: -1px; left: 0; right: 0;
+    background: var(--orange);
+    color: var(--black);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-align: center;
+    padding: 0.35rem;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--black); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5px;
+    margin-top: 1rem;
+    background: var(--border);
+  }
+  .service-card {
+    background: var(--card);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .service-card:hover { background: #1e1e1e; }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon {
+    font-size: 2rem; margin-bottom: 1.2rem;
+    display: block;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.8rem;
+  }
+  .service-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ── PORTFOLIO ── */
+  #portfolio { background: var(--deep); }
+  .portfolio-filter {
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.2rem;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active,
+  .filter-btn:hover {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: var(--white);
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+  }
+  .portfolio-item {
+    background: var(--card);
+    aspect-ratio: 4/3;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .portfolio-item-bg {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: var(--border);
+    transition: transform 0.4s;
+  }
+  .portfolio-item:hover .portfolio-item-bg { transform: scale(1.05); }
+  .portfolio-overlay {
+    position: absolute; inset: 0;
+    background: rgba(26,58,219,0.92);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+  .portfolio-overlay h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+  .portfolio-overlay p {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-top: 0.5rem;
+  }
+  /* individual bg colors for portfolio cards */
+  .pi-1 .portfolio-item-bg { background: #141414; }
+  .pi-2 .portfolio-item-bg { background: #161616; }
+  .pi-3 .portfolio-item-bg { background: #121212; }
+  .pi-4 .portfolio-item-bg { background: #181818; }
+  .pi-5 .portfolio-item-bg { background: #131313; }
+  .pi-6 .portfolio-item-bg { background: #151515; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--black); }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1000px;
+  }
+  .contact-info p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-detail-icon {
+    font-size: 1.2rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .contact-detail-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.25rem;
+  }
+  .contact-detail-value {
+    font-size: 0.92rem;
+    color: var(--white);
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .form-input, .form-textarea {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    padding: 0.85rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--orange); }
+  .form-textarea { resize: vertical; min-height: 140px; }
+  .form-submit {
+    align-self: flex-start;
+    padding: 0.9rem 2.2rem;
+    background: var(--orange);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .form-submit:hover { background: var(--orange2); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--orange); }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    #home { padding: 7rem 1.5rem 3rem; }
+    .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .portfolio-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+  @media (max-width: 480px) {
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">LAWAL <span>FORGE</span></a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow">— Creative &amp; Technical Design Studio</p>
+  <h1 class="hero-title">
+    IDEAS<br>
+    <span class="forge">FORGED</span><br>
+    INTO FORM
+  </h1>
+  <p class="hero-sub">
+    From bold brand visuals to precision CAD drawings and 3D models —
+    Lawal Forge turns concepts into polished, purposeful work.
+  </p>
+  <div class="hero-cta">
+    <a href="#portfolio" class="btn-primary">View My Work</a>
+    <a href="#contact" class="btn-secondary">Start a Project</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Core Disciplines</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Custom Work</div>
+    </div>
+    <div>
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Iterations Until Right</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <p class="section-eyebrow">— Who I Am</p>
+      <h2 class="section-title">Built on Precision. Driven by Design.</h2>
+      <div class="divider"></div>
+      <p>
+        I'm <strong>Lawal Mohammad Lawal</strong>, a multi-disciplined creative and technical designer. 
+        My work lives at the intersection of visual communication and engineering precision — 
+        where a brand identity is just as important as a dimensionally accurate technical drawing.
+      </p>
+      <p>
+        Whether it's a <strong>graphic identity</strong> that makes people stop scrolling, 
+        an <strong>AutoCAD or SolidWorks</strong> model built to exact specification, 
+        or an <strong>animated sequence</strong> that brings a concept to life — 
+        every project gets the same obsessive attention to detail.
+      </p>
+      <p>
+        Lawal Forge is where that work happens.
+      </p>
+      <div class="about-tags">
+        <span class="tag">Graphic Design</span>
+        <span class="tag">AutoCAD</span>
+        <span class="tag">SolidWorks</span>
+        <span class="tag">3D Modelling</span>
+        <span class="tag">Animation</span>
+        <span class="tag">Technical Drafting</span>
+        <span class="tag">Branding</span>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-forge-art">
+        <span class="forge-initial">LF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-eyebrow">— What I Do</p>
+  <h2 class="section-title">Services</h2>
+  <div class="divider"></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">🎨</span>
+      <h3 class="service-name">Graphic Design</h3>
+      <p class="service-desc">
+        Brand identities, logos, marketing materials, social media visuals, and print design crafted to communicate and convert.
+      </p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📐</span>
+      <h3 class="service-name">AutoCAD Drafting</h3>
+      <p class="service-desc">
+        2D technical drawings, floor plans, mechanical layouts, and construction documentation with precision and clarity.
+      </p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">⚙️</span>
+      <h3 class="service-name">SolidWorks 3D</h3>
+      <p class="service-desc">
+        3D part modelling, assemblies, product design, and engineering simulations built to real-world specifications.
+      </p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🎬</span>
+      <h3 class="service-name">Animation</h3>
+      <p class="service-desc">
+        Motion graphics, product visualisations, and animated explainers that bring ideas to life with movement and purpose.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <p class="section-eyebrow">— My Work</p>
+  <h2 class="section-title">Portfolio</h2>
+  <div class="divider"></div>
+  <div class="portfolio-filter">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Graphic Design</button>
+    <button class="filter-btn">AutoCAD</button>
+    <button class="filter-btn">SolidWorks</button>
+    <button class="filter-btn">Animation</button>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-item pi-1">
+      <div class="portfolio-item-bg">🎨</div>
+      <div class="portfolio-overlay">
+        <h3>Brand Identity</h3>
+        <p>Graphic Design</p>
+      </div>
+    </div>
+    <div class="portfolio-item pi-2">
+      <div class="portfolio-item-bg">📐</div>
+      <div class="portfolio-overlay">
+        <h3>Floor Plan</h3>
+        <p>AutoCAD</p>
+      </div>
+    </div>
+    <div class="portfolio-item pi-3">
+      <div class="portfolio-item-bg">⚙️</div>
+      <div class="portfolio-overlay">
+        <h3>Part Assembly</h3>
+        <p>SolidWorks</p>
+      </div>
+    </div>
+    <div class="portfolio-item pi-4">
+      <div class="portfolio-item-bg">🎬</div>
+      <div class="portfolio-overlay">
+        <h3>Motion Graphic</h3>
+        <p>Animation</p>
+      </div>
+    </div>
+    <div class="portfolio-item pi-5">
+      <div class="portfolio-item-bg">🖼️</div>
+      <div class="portfolio-overlay">
+        <h3>Print Campaign</h3>
+        <p>Graphic Design</p>
+      </div>
+    </div>
+    <div class="portfolio-item pi-6">
+      <div class="portfolio-item-bg">🔩</div>
+      <div class="portfolio-overlay">
+        <h3>Mechanical Part</h3>
+        <p>SolidWorks</p>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:2rem; font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.12em; color:var(--muted); text-transform:uppercase;">
+    → Replace placeholders with your actual project images &amp; screenshots
+  </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-eyebrow">— Get In Touch</p>
+  <h2 class="section-title">Start a Project</h2>
+  <div class="divider"></div>
+  <div class="contact-inner">
+    <div class="contact-info">
+      <p>
+        Have a project in mind? Whether it's a brand identity, a technical drawing, 
+        a 3D model, or an animation — let's talk about what you need and make it happen.
+      </p>
+      <div class="contact-detail">
+        <span class="contact-detail-icon">📧</span>
+        <div>
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value">lawal@lawalforge.com</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-icon">📍</span>
+        <div>
+          <div class="contact-detail-label">Based In</div>
+          <div class="contact-detail-value">Nigeria</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-detail-icon">⏱️</span>
+        <div>
+          <div class="contact-detail-label">Response Time</div>
+          <div class="contact-detail-value">Within 24 hours</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="John Doe" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="john@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Needed</label>
+        <input type="text" class="form-input" placeholder="e.g. Logo Design, AutoCAD Drawing..." />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Brief</label>
+        <textarea class="form-textarea" placeholder="Tell me about your project..."></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">LAWAL <span>FORGE</span></div>
+  <div class="footer-copy">© 2026 Lawal Forge. All rights reserved.</div>
+</footer>
+
+<script>
+  // Filter buttons (visual toggle only — swap for real filter logic once you add project data)
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Smooth active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--orange)' : '';
+    });
+  });
+</script>
+</body>
+</html>
